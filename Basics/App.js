@@ -1,3 +1,5 @@
+import React from "react";
+import  ReactDOM  from "react-dom/client";
 const heading=React.createElement("h1",{id:"heading"},"Hello world from React !"); //heading is now an React element and react element is basically javascript objects
 console.log(heading);
 const root=ReactDOM.createRoot(document.getElementById("root"));
