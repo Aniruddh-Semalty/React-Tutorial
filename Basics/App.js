@@ -29,7 +29,8 @@ const parent=React.createElement("div",{id:"parent"},[
         React.createElement("h1",{},"I am first child"),
         React.createElement("h1",{},"I am second child")
         ])
+
     ]
   
-)  //the above code is so messy if we want to make more and more childs so that's JSX came into the picture 
+)       //the above code is so messy if we want to make more and more childs so that's JSX came into the picture 
 root.render(parent)
