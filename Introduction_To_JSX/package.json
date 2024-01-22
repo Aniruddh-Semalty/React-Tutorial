@@ -1,0 +1,19 @@
+{
+  "name": "introduction_to_jsx",
+  "version": "1.0.0",
+  "description": "Introduction to jsx syntax",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "author": "Aniruddh semalty",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.11.0"
+  },
+  "devDependencies": {
+    "react": "^18.2.0"
+  }
+}
