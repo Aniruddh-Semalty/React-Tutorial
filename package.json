@@ -4,7 +4,9 @@
   "description": "React Basics to advanced",
  
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start":"parcel Basics/index.html",
+    "build":"parcel build Basics/index.html"
   },
   "keywords": [
     "react",
