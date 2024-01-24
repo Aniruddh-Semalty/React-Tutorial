@@ -1,0 +1,20 @@
+{
+  "name": "qdfood",
+  "version": "1.0.0",
+  "description": "Food ordering Website",
+  "main": "App.js",
+  "scripts": {
+    "test": "jest",
+    "dev":"parcel Index.html",
+    "build":"parcel build Index.html"
+  },
+  "keywords": [
+    "Food"
+  ],
+  "author": "Aniruddh Semalty",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.11.0",
+    "react": "^18.2.0"
+  }
+}
