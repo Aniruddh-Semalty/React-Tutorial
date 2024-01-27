@@ -5,8 +5,8 @@
   "main": "App.js",
   "scripts": {
     "test": "jest",
-    "dev":"parcel Index.html",
-    "build":"parcel build Index.html"
+    "dev": "parcel Index.html",
+    "build": "parcel build Index.html"
   },
   "keywords": [
     "Food"
@@ -15,6 +15,10 @@
   "license": "ISC",
   "devDependencies": {
     "parcel": "^2.11.0",
+    "process": "^0.11.10",
     "react": "^18.2.0"
+  },
+  "dependencies": {
+    "react-dom": "^18.2.0"
   }
 }
