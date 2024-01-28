@@ -58,3 +58,29 @@
     width:100%;
 }
 
+.top-rated-btn{
+    width:100px;
+    height:55px;
+    
+}
+.top-rated-btn-container{
+    margin:0px 10px;
+}
+.all-restaurants-btn{
+    width:100px;
+    height:55px;
+    
+}
+
+.all-restaurants-btn:hover{
+    cursor:pointer;
+    background-color: #d54f1fcf;
+    color:white;
+}
+.top-rated-btn:hover{
+    cursor:pointer;
+    background-color: #d54f1fcf;
+    color:white;
+    
+}
+
