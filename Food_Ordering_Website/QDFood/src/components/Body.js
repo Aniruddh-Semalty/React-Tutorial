@@ -4,6 +4,8 @@ import ShimmerUi from "./ShimmerUi";
 
 const Body = () => {
   const [restaurantList, setrestaurantList] = useState([]);
+  const [filteredRestaurants,setFilteredRestaurants]=useState([]);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     fetchAndPopulate();
@@ -19,21 +21,41 @@ const Body = () => {
       jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
+    setFilteredRestaurants(
+      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
   };
 
-  if(restaurantList.length==0)
-  {
-    return (<ShimmerUi />)
-  }
+  //conditional rendering
+  //show shimmer effect until your api data is not rendered
 
-  return (
+  return restaurantList.length === 0 ? (
+    <ShimmerUi />
+  ) : (
     <div className="body-container">
       <div className="search-box">
         <input
           className="search-bar"
           type="text"
           placeholder="Type to search restaurants at your location"
+          value={searchText}
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
         />
+        <button
+          onClick={() => {
+            const searchRestaurants = restaurantList.filter((restaurant) => {
+              return restaurant.info.name
+                .toLowerCase()
+                .includes(searchText.toLowerCase());
+            });
+            setFilteredRestaurants(searchRestaurants);
+          }}
+        >
+          Search
+        </button>
         <div className="top-rated-btn-container">
           <button
             className="top-rated-btn"
@@ -41,7 +63,7 @@ const Body = () => {
               const topRestaurants = restaurantList.filter((restaurant) => {
                 return restaurant.info.avgRating > 4.3;
               });
-              setrestaurantList(topRestaurants);
+              setFilteredRestaurants(topRestaurants);
             }}
           >
             Top Rated Restaurants
@@ -51,7 +73,7 @@ const Body = () => {
           <button
             className="all-restaurants-btn"
             onClick={() => {
-              setrestaurantList(resList);
+              setFilteredRestaurants(restaurantList);
             }}
           >
             All Restaurants
@@ -59,7 +81,7 @@ const Body = () => {
         </div>
       </div>
       <div className="restaurant-container">
-        {restaurantList.map((restaurant) => (
+        {filteredRestaurants.map((restaurant) => (
           <CardComponent key={restaurant.info.id} restaurantObj={restaurant} />
         ))}
       </div>

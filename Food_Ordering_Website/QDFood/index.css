@@ -7,6 +7,7 @@
   display: flex;
   list-style-type: none;
   padding-top: 10px;
+  text-align: center;
 }
 .navbar-items > ul > li {
   padding: 0px 20px;
@@ -16,6 +17,24 @@
   height: 80px;
 }
 
+
+
+.login-btn{
+  border:none;
+  border-radius:10%;
+display: flex;
+justify-content:center;
+margin:0px 10px;
+width:100px;
+height:20px;
+
+}
+.login-btn:hover{
+ 
+  
+  cursor:pointer;
+  background-color:#d54f1fcf ;
+}
 /*Body style*/
 
 .top-rated-btn {
