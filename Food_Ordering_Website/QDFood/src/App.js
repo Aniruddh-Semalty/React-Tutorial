@@ -5,31 +5,37 @@ import Header from "./components/Header";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
-import {createBrowserRouter,RouterProvider} from "react-router-dom"
+import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
 const AppComponent = () => {
   return (
     <div>
       <Header />
-      <Body/>
+      <Outlet/>  {/*Outlet componenet is replaced by children routes*/}
     </div>
   );
 };
 
-const appRouter=createBrowserRouter([
+const appRouter = createBrowserRouter([
   {
-    path:"/",
-    element:<AppComponent />,
-    errorElement:<Error/>
-  },
-  {
-    path:"/about",
-    element:<About/>
-  },
-  {
-    path:"/contact",
-    element:<Contact/>
+    path: "/",
+    element: <AppComponent />,
+    children: [
+      {
+        path:"/",
+        element:<Body/>
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+    ],
+    errorElement: <Error />,
   }
-])
+]);
 
 const root = reactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter}/>);
+root.render(<RouterProvider router={appRouter} />);
