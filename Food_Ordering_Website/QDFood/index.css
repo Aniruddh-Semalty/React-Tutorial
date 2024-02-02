@@ -78,7 +78,7 @@ height:20px;
 .restaurant-card {
   margin: 5px;
   background-color: cornsilk;
-
+  height:500px;
   width: 250px;
 }
 
@@ -121,4 +121,57 @@ height:20px;
   width: 250px;
   height: 300px;
   background-color: #f0f0f0;
+}
+
+
+
+
+                                /* Restaurant Menu Css */
+.restaurant-details-container{
+ display:flex;
+justify-content:center;
+border-bottom: 1px solid black;
+ 
+}
+
+.menu-container{
+  display:flex;
+  justify-content: center;
+  
+}
+.menu-type-container{
+margin:40px;
+padding:50px;
+
+display:flex;
+flex-direction: column;
+align-items: center;
+}
+.menu-card-container{
+  display:flex;
+  width:1000px;
+  height:150px;
+  justify-content: space-between;
+  border-bottom:1px solid gray;
+  
+}
+.card-details-container{
+  display:flex-inline;
+  align-items: center;
+}
+
+.card-img-container{
+  display:flex;
+  align-items:center;
+}
+
+.card-img-container>img{
+width:130px;
+height:130px;
+border-radius: 10%;
+}
+
+a{
+  text-decoration: none;
+  color:black;
 }

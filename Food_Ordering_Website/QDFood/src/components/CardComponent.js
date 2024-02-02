@@ -1,4 +1,5 @@
 import { IMG_URL } from "../utils/constants";
+
 const CardComponent = (props) => {
     //let us first destructure the object
     const { restaurantObj } = props;
@@ -23,6 +24,7 @@ const CardComponent = (props) => {
           {cuisines.join(", ")} | {areaName}
         </h4>
       </div>
+      
     );
   };
   export default CardComponent;
