@@ -3,32 +3,31 @@ class AboutClass extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0, //same as defining const [count]=useState(0);
+        userInfo:{}
+     
     };
-    console.log("child componenet constructor called");
+   
   }
-  componentDidMount(){
-    console.log("child componenet did mount function called");
+ async componentDidMount(){
+    const data=await fetch(  "https://api.github.com/users/Aniruddh-Semalty");
+    const json=await data.json();
+    this.setState({
+        userInfo:json,
+    })
+    console.log(json);
+    
   }
   render() {
-    console.log("child componenet render method called")
-    const { name, location } = this.props;
+    const {name,company,location,url,email}=this.state.userInfo;
+   
     return (
       <>
         <div>
-          <h2>{this.state.count}</h2>
-          <button
-            onClick={() => {
-              this.setState({
-                count: this.state.count + 1,
-              });
-            }}
-          >
-            Increase
-          </button>
+           
           <h2>{name}</h2>
           <h3>Location : {location}</h3>
-          <h4>Linkedin : Aniruddh Semalty</h4>
+          <h4>Github url:{url}</h4>
+          <h5>Email-id:{email}</h5>
         </div>
       </>
     );
