@@ -1,12 +1,16 @@
-import react from "react";
+import react,{lazy,Suspense} from "react";
 import reactDOM from "react-dom/client";
 import Body from "./components/Body";
 import Header from "./components/Header";
-import About from "./components/About";
-import Contact from "./components/Contact";
 import Error from "./components/Error";
-import RestaurantMenu from "./components/RestaurantMenu";
+
 import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
+import ShimmerUi from "./components/ShimmerUi";
+
+                            //Chunking or Lazy loading
+const Contact=lazy(()=>import("./components/Contact"));
+const About =lazy(()=>import("./components/About"));
+const RestaurantMenu=lazy(()=>import("./components/RestaurantMenu"));
 const AppComponent = () => {
   return (
     <div>
@@ -27,15 +31,15 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />,
+        element:<Suspense fallback={<h1>Loading...</h1>}> <About /></Suspense>,
       },
       {
         path: "/contact",
-        element: <Contact />,
+        element:<Suspense fallback={<h1>Loading...</h1>}> <Contact /></Suspense>,
       },
       {
         path:"/restaurant/:resid",
-        element:<RestaurantMenu/>
+        element:<Suspense fallback={<ShimmerUi />}><RestaurantMenu/></Suspense>
       }
     ],
     errorElement: <Error />,
