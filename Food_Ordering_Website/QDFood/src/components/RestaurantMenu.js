@@ -4,10 +4,16 @@ import {useParams} from "react-router-dom";
 
 import {itemImgUrl} from "../utils/constants"
 import useRestaurantMenu from "../utils/useRestaurantMenu"
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const RestaurantMenu = () => {
     const {resid}=useParams();
     const menu=useRestaurantMenu(resid);  //custom hook
+    const onlineStatus=useOnlineStatus();
+    if(onlineStatus===false)
+  {
+    return(<h1>Sorry,you are not connected to internet</h1>)
+  }
  
 
   return menu === null ? (

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import CardComponent from "./CardComponent";
 import ShimmerUi from "./ShimmerUi";
 import {Link} from "react-router-dom"
+import useOnlineStatus from "../utils/useOnlineStatus";
+
 
 const Body = () => {
   const [restaurantList, setrestaurantList] = useState([]);
@@ -11,6 +13,8 @@ const Body = () => {
   useEffect(() => {
     fetchAndPopulate();
   }, []);
+
+ 
 
   const fetchAndPopulate = async () => {
     const data = await fetch(
@@ -30,6 +34,12 @@ const Body = () => {
 
   //conditional rendering
   //show shimmer effect until your api data is not rendered
+  const onlineStatus=useOnlineStatus();
+
+  if(onlineStatus===false)
+  {
+    return(<h1>Sorry,you are not connected to internet</h1>)
+  }
 
   return restaurantList.length === 0 ? (
     <ShimmerUi />
