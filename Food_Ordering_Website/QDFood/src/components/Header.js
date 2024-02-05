@@ -5,7 +5,8 @@ import useOnlineStatus from "../utils/useOnlineStatus";
 const Header = () => {
   const [loginButton, setLoginButton] = useState("Login");
   const onlineStatus=useOnlineStatus();
-  return (
+  return (<>
+  
     <div className="header">
       <div className="logo">
         <img id="logo" src={LOGO_URL} />
@@ -32,6 +33,7 @@ const Header = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 export default Header;

@@ -18,16 +18,16 @@ const Body = () => {
 
   const fetchAndPopulate = async () => {
     const data = await fetch(
-     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.27232867765073&lng=78.09663232415915&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
-    );
+     "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.27232867765073&lng=78.09663232415915&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
     const jsonData = await data.json();
+    
     //optional chaining i.e(?.)
     setrestaurantList(
-      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+      jsonData?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
     setFilteredRestaurants(
-      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+      jsonData?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants
     );
   };
@@ -40,7 +40,7 @@ const Body = () => {
   {
     return(<h1>Sorry,you are not connected to internet</h1>)
   }
-
+  
   return restaurantList.length === 0 ? (
     <ShimmerUi />
   ) : (
