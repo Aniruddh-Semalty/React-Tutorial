@@ -7,14 +7,14 @@ const CardComponent = (props) => {
       restaurantObj.info;
   
     return (
-      <div className="restaurant-card">
+      <div className="m-5 p-2 h-[600px] w-[300px] border border-black">
         <img
-          className="restaurant-img"
+          className="h-2/4 w-full rounded-lg"
           src={IMG_URL
             +
             cloudinaryImageId
           }
-          alt="image"
+          alt="image" 
         ></img>
         <h3>{name}</h3>
         <h4>
@@ -26,5 +26,16 @@ const CardComponent = (props) => {
       </div>
       
     );
+  };
+
+  export const PopularCardComponent=(CardComponent)=>{
+    return (props)=>{
+      return (
+        <div>
+          <label className="bg-black text-white">Most Popular</label>
+          <CardComponent restaurantObj={props.restaurantObj}/>
+        </div>
+      )
+    }
   };
   export default CardComponent;
