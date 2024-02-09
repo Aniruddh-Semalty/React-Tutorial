@@ -7,7 +7,7 @@ const CardComponent = (props) => {
       restaurantObj.info;
   
     return (
-      <div className="m-5 p-2 h-[600px] w-[300px] border border-black">
+      <div className="m-5 bg-slate-400 p-2 h-[600px] w-[300px] border border-black">
         <img
           className="h-2/4 w-full rounded-lg"
           src={IMG_URL
@@ -31,11 +31,11 @@ const CardComponent = (props) => {
   export const PopularCardComponent=(CardComponent)=>{
     return (props)=>{
       return (
-        <div>
-          <label className="bg-black text-white">Most Popular</label>
+      <>
+          <label className="bg-slate-500 m-2 p-2 rounded-lg text-white">Most Popular</label>
           <CardComponent restaurantObj={props.restaurantObj}/>
-        </div>
+      </>
       )
-    }
+    } 
   };
   export default CardComponent;

@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
 import ShimmerUi from "./ShimmerUi";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import {itemImgUrl} from "../utils/constants"
-import useRestaurantMenu from "../utils/useRestaurantMenu"
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import RestaurantListItems from "./RestaurantListItems";
 
 const RestaurantMenu = () => {
-    const {resid}=useParams();
-    const menu=useRestaurantMenu(resid);  //custom hook
-    const onlineStatus=useOnlineStatus();
-    if(onlineStatus===false)
-  {
-    return(<h1>Sorry,you are not connected to internet</h1>)
+  const { resid } = useParams();
+  const menu = useRestaurantMenu(resid); //custom hook
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) {
+    return <h1>Sorry,you are not connected to internet</h1>;
   }
- 
 
   return menu === null ? (
     <ShimmerUi />
@@ -29,9 +27,9 @@ const RestaurantMenu = () => {
 const MenuHeader = ({ menu }) => {
   const details = menu.cards[0].card?.card?.info;
   return (
-    <div className="restaurant-details-container">
+    <div className="flex justify-center m-6 p-6">
       <div>
-        <h3>{details.name}</h3>
+        <h3 className="font-bold text-2xl my-6">{details.name}</h3>
         <h4>{details.cuisines.join(", ")}</h4>
         <h5>
           {details.areaName},{details.sla.lastMileTravelString},
@@ -47,45 +45,44 @@ const MenuHeader = ({ menu }) => {
 };
 
 const MenuBody = ({ menu }) => {
+  const [showItems, setShowItems] = useState(false);
   const details = menu.cards[2].groupedCard.cardGroupMap.REGULAR;
   const Title = details.title;
   const menuType = details.cards.filter((item) => {
-    return item.card.card.itemCards != undefined;
+    // return item.card.card.itemCards != undefined;
+    return (
+      item?.card?.card?.["@type"] ===
+      "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
   });
 
+  function handleClick() {
+    setShowItems(!showItems);
+  }
 
   return (
-    <div className="menu-container">
-    <div>
-      {menuType.map((item) => (
-        <div className="menu-type-container">
-         <h3> {item.card.card.title}</h3>
-          {item.card.card.itemCards.map((item) => (
-            
-            <RestaurantItem item={item} />
-            
-          ))}
-        </div>
-      ))}
-    </div>
-    </div>
-  );
-};
-
-const RestaurantItem = ({ item }) => {
- 
-  return (
-    <div className="menu-card-container">
-        <div className="card-details-container">
-      <h4>{item.card.info.name}</h4>
-      <h4>Price Rs.{item.card.info.price / 100}</h4>
-      <h5>{item.card.info.description}</h5>
-      </div>
-      <div className="card-img-container">
-      
-      <img src={itemImgUrl + item.card.info.imageId}></img>
+    <div className="">
+      <div className="">
+        {menuType.map((item) => (
+          <>
+            <div className="w-1/2 bg-gray-300 shadow-lg p-4 mx-auto my-4  "onClick={handleClick}>
+              {/* accordian header */}
+              <div className="flex justify-between">
+                <span className="font-bold text-lg">
+                  {item?.card?.card?.title} ({" "}
+                  {item?.card?.card?.itemCards.length} )
+                </span>
+                <button>🔽</button>
+              </div>
+              {/* accordian body*/}
+              
+              {showItems && <RestaurantListItems item={item} />}
+            </div>
+          </>
+        ))}
       </div>
     </div>
   );
 };
+
 export default RestaurantMenu;
