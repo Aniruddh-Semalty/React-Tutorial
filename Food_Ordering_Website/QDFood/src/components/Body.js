@@ -1,35 +1,32 @@
-import { useState, useEffect } from "react";
-import CardComponent,{PopularCardComponent} from "./CardComponent";
+import { useState, useEffect,useContext } from "react";
+import CardComponent, { PopularCardComponent } from "./CardComponent";
 import ShimmerUi from "./ShimmerUi";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import useGetResaurants from "../utils/useGetRestaurants";
-
+import userContext from "../utils/userContext.js";
 
 const Body = () => {
-  const [restaurantList,setrestaurantList]=useState([]);
-  const [filteredRestaurants,setFilteredRestaurants]=useState([]);
+  const [restaurantList, setrestaurantList] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const {setUserName}=useContext(userContext);
+  const restaurants = useGetResaurants();
+  useEffect(() => {
+    setFilteredRestaurants(restaurants);
+    setrestaurantList(restaurants);
+  });
 
-  const restaurants=useGetResaurants();
-    useEffect(()=>{
-     
-      setFilteredRestaurants(restaurants);
-      setrestaurantList(restaurants);
-     
-    }); 
-
-    const PopularRestro=PopularCardComponent(CardComponent);
+  const PopularRestro = PopularCardComponent(CardComponent);
 
   //conditional rendering
   //show shimmer effect until your api data is not rendered
-  const onlineStatus=useOnlineStatus();
+  const onlineStatus = useOnlineStatus();
 
-  if(onlineStatus===false)
-  {
-    return(<h1>Sorry,you are not connected to internet</h1>)
+  if (onlineStatus === false) {
+    return <h1>Sorry,you are not connected to internet</h1>;
   }
-  
+
   return restaurantList.length === 0 ? (
     <ShimmerUi />
   ) : (
@@ -80,17 +77,31 @@ const Body = () => {
             All Restaurants
           </button>
         </div>
+        <div className="m-2">
+          <input
+            type="text"
+            placeHolder="type"
+            className="border-2 w-[100px] h-[60px] p-2"
+            onChange={(e)=>{
+                setUserName(e.target.value)
+            }}
+          ></input>
+        </div>
       </div>
       <div className="flex flex-wrap">
         {filteredRestaurants.map((restaurant) => (
-         
           <Link
-          key={restaurant.info.id}
-          to={"/restaurant/"+restaurant.info.id}
+            key={restaurant.info.id}
+            to={"/restaurant/" + restaurant.info.id}
           >
-
-          {(restaurant.info.avgRating>4.2)?(<PopularRestro restaurantObj={restaurant}/>):(<CardComponent key={restaurant.info.id} restaurantObj={restaurant} />)}
-          
+            {restaurant.info.avgRating > 4.2 ? (
+              <PopularRestro restaurantObj={restaurant} />
+            ) : (
+              <CardComponent
+                key={restaurant.info.id}
+                restaurantObj={restaurant}
+              />
+            )}
           </Link>
         ))}
       </div>

@@ -7,7 +7,7 @@ function RestaurantListItems({item}) {
     {item.card.card.itemCards.map((item) => (
       
       <div className="my-6">
-       <RestaurantItem item={item} />
+       <RestaurantItem key={item.card.info.id} item={item} />
       </div>
     ))}
   </div>

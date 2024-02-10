@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import useOnlineStatus from "../utils/useOnlineStatus";
-import RestaurantListItems from "./RestaurantListItems";
+
+import MenuType from "./MenuType";
 
 const RestaurantMenu = () => {
   const { resid } = useParams();
@@ -45,44 +46,55 @@ const MenuHeader = ({ menu }) => {
 };
 
 const MenuBody = ({ menu }) => {
-  const [showItems, setShowItems] = useState(false);
   const details = menu.cards[2].groupedCard.cardGroupMap.REGULAR;
   const Title = details.title;
+
   const menuType = details.cards.filter((item) => {
-    // return item.card.card.itemCards != undefined;
     return (
       item?.card?.card?.["@type"] ===
       "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
   });
+  const [expandMenuTypes, setExpandMenuTypes] = useState(false);
+  const clickHandler = () => {
+    setExpandMenuTypes(!expandMenuTypes);
+  };
+  return (
+    <>
+      <div
+        className="w-1/3 bg-gray-300 shadow-lg p-4 mx-auto my-4"
+        onClick={clickHandler}
+      >
+        {/* accordian header */}
+        <div className="flex justify-between">
+          <span className="font-bold text-lg">Menu Types </span>
+          <button>🔽</button>
+        </div>
+      </div>
+      {expandMenuTypes && <MenuTypes menuType={menuType} />}
+    </>
+  );
+};
 
-  function handleClick() {
-    setShowItems(!showItems);
-  }
-
+function MenuTypes({ menuType }) {
+  const [expandIndex, setExpandIndex] = useState(null);
   return (
     <div className="">
       <div className="">
-        {menuType.map((item) => (
-          <>
-            <div className="w-1/2 bg-gray-300 shadow-lg p-4 mx-auto my-4  "onClick={handleClick}>
-              {/* accordian header */}
-              <div className="flex justify-between">
-                <span className="font-bold text-lg">
-                  {item?.card?.card?.title} ({" "}
-                  {item?.card?.card?.itemCards.length} )
-                </span>
-                <button>🔽</button>
-              </div>
-              {/* accordian body*/}
-              
-              {showItems && <RestaurantListItems item={item} />}
-            </div>
-          </>
+        {menuType.map((item, index) => (
+          <MenuType
+            key={item?.card?.card?.title}
+            item={item}
+            showItems={index === expandIndex ? true : false}
+            expandIndexState={() => {
+              //lifting the state up
+              setExpandIndex(index);
+            }}
+          />
         ))}
       </div>
     </div>
   );
-};
+}
 
 export default RestaurantMenu;
