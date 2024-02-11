@@ -1,7 +1,10 @@
 import React from 'react'
 import { itemImgUrl } from "../utils/constants";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../utils/Store/cartSlice';
+import { UseSelector } from 'react-redux';
 function RestaurantListItems({item}) {
+
   return (
     <div>
     {item.card.card.itemCards.map((item) => (
@@ -15,6 +18,14 @@ function RestaurantListItems({item}) {
 }
 
 const RestaurantItem = ({ item }) => {
+  const itemsOfCart=useSelector((store)=>store.cart.items);
+  const dispatch=useDispatch();
+ 
+  const handleCartAddItems=(item)=>{
+    dispatch(addItem({item}));
+   
+    
+  }
     return (
       <>
         <div className=" border-gray-400 border-b-2 flex justify-between">
@@ -32,7 +43,8 @@ const RestaurantItem = ({ item }) => {
               {item.card.info.imageId? <img
               className="w-24 h-24 p-2 rounded-xl"
               src={itemImgUrl + item.card.info.imageId}
-            />:null} 
+            />:null}
+            <div className='flex justify-center m-1'><button className='bg-[#d54f1fcf] rounded-lg text-white' onClick={()=>{handleCartAddItems(item)}}>Add+</button></div>
            
           </div>
         </div>
