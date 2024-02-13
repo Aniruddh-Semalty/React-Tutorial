@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { itemImgUrl } from "../utils/constants";
-import { UseDispatch } from 'react-redux';
+
 import { clearCart } from '../utils/Store/cartSlice';
 
 function Cart() {
@@ -19,7 +19,7 @@ function Cart() {
   <div>
     <h1 className='font-bold text-center text-2xl my-4'>Cart</h1>
     </div>
-    <div>
+    <div className='flex justify-center'>
    <button className="bg-[#d54f1fcf] w-20 h-10 rounded-lg " onClick={handleClearCart}>Clear cart</button>
     </div>
   {cartItems.map((item)=>{
