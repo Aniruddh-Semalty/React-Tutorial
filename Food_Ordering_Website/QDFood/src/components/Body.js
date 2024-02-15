@@ -3,7 +3,7 @@ import CardComponent, { PopularCardComponent } from "./CardComponent";
 import ShimmerUi from "./ShimmerUi";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
-import useGetResaurants from "../utils/useGetRestaurants";
+
 import userContext from "../utils/userContext.js";
 
 const Body = () => {
@@ -11,11 +11,23 @@ const Body = () => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const {setUserName}=useContext(userContext);
-  const restaurants = useGetResaurants();
-  useEffect(() => {
-    setFilteredRestaurants(restaurants);
-    setrestaurantList(restaurants);
-  });
+
+   
+
+   useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData=async()=>{
+    const data = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.27232867765073&lng=78.09663232415915&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
+    const jsonData = await data.json();
+   setrestaurantList(  jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+   setFilteredRestaurants(  jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    
+}
+
+
+ 
 
   const PopularRestro = PopularCardComponent(CardComponent);
 
@@ -43,13 +55,19 @@ const Body = () => {
         />
         <button
           className="border-2 w-32 m-2 h-[60px] hover:bg-[#d54f1fcf] hover:text-white"
-          onClick={() => {
+          onClick={async() => {
+            
             const searchRestaurants = restaurantList.filter((restaurant) => {
-              return restaurant.info.name
+             
+               const res=(restaurant.info.name
                 .toLowerCase()
-                .includes(searchText.toLowerCase());
+                .includes(searchText.toLowerCase()));
+                return res;
             });
+            
             setFilteredRestaurants(searchRestaurants);
+           
+            
           }}
         >
           Search
