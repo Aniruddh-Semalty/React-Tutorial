@@ -3,6 +3,7 @@ import { IMG_URL } from "../utils/constants";
 const CardComponent = (props) => {
     //let us first destructure the object
     const { restaurantObj } = props;
+
     const { cloudinaryImageId, name, avgRating, cuisines, sla, areaName } =
       restaurantObj.info;
   
