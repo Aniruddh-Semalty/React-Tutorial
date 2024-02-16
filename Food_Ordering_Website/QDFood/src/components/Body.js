@@ -1,4 +1,4 @@
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import CardComponent, { PopularCardComponent } from "./CardComponent";
 import ShimmerUi from "./ShimmerUi";
 import { Link } from "react-router-dom";
@@ -10,24 +10,25 @@ const Body = () => {
   const [restaurantList, setrestaurantList] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const {setUserName}=useContext(userContext);
+  const { setUserName } = useContext(userContext);
 
-   
-
-   useEffect(() => {
+  useEffect(() => {
     fetchData();
   }, []);
-  const fetchData=async()=>{
+  const fetchData = async () => {
     const data = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.27232867765073&lng=78.09663232415915&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING")
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.27232867765073&lng=78.09663232415915&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
     const jsonData = await data.json();
-   setrestaurantList(  jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-   setFilteredRestaurants(  jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-    
-}
-
-
- 
+    setrestaurantList(
+      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+    setFilteredRestaurants(
+      jsonData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+  };
 
   const PopularRestro = PopularCardComponent(CardComponent);
 
@@ -49,25 +50,22 @@ const Body = () => {
           type="text"
           placeholder="Type to search restaurants at your location"
           value={searchText}
+          data-testid="searchInputBox"
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
         />
         <button
           className="border-2 w-32 m-2 h-[60px] hover:bg-[#d54f1fcf] hover:text-white"
-          onClick={async() => {
-            
+          onClick={async () => {
             const searchRestaurants = restaurantList.filter((restaurant) => {
-             
-               const res=(restaurant.info.name
+              const res = restaurant.info.name
                 .toLowerCase()
-                .includes(searchText.toLowerCase()));
-                return res;
+                .includes(searchText.toLowerCase());
+              return res;
             });
-            
+
             setFilteredRestaurants(searchRestaurants);
-           
-            
           }}
         >
           Search
@@ -98,10 +96,10 @@ const Body = () => {
         <div className="m-2">
           <input
             type="text"
-            placeHolder="type"
+            placeholder="type"
             className="border-2 w-[100px] h-[60px] p-2"
-            onChange={(e)=>{
-                setUserName(e.target.value)
+            onChange={(e) => {
+              setUserName(e.target.value);
             }}
           ></input>
         </div>

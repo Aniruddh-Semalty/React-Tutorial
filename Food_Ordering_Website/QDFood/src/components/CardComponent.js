@@ -8,7 +8,7 @@ const CardComponent = (props) => {
       restaurantObj.info;
   
     return (
-      <div className="m-5 bg-slate-400 p-2 h-[600px] w-[300px] border border-black">
+      <div data-testid="resCard" className="m-5 bg-slate-400 p-2 h-[600px] w-[300px] border border-black">
         <img
           className="h-2/4 w-full rounded-lg"
           src={IMG_URL
