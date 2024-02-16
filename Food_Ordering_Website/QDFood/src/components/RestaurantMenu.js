@@ -45,7 +45,7 @@ const MenuHeader = ({ menu }) => {
   );
 };
 
-const MenuBody = ({ menu }) => {
+export const MenuBody = ({ menu }) => {
   const details = menu.cards[2].groupedCard.cardGroupMap.REGULAR;
   const Title = details.title;
 

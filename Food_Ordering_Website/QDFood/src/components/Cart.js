@@ -15,7 +15,7 @@ function Cart() {
 
 
   return cartItems.length===0?<div>Empty cart please add items first</div>:(
-  <div className="w-1/2 m-auto flex-col justify-center">
+  <div  className="w-1/2 m-auto flex-col justify-center">
   <div>
     <h1 className='font-bold text-center text-2xl my-4'>Cart</h1>
     </div>
@@ -34,8 +34,8 @@ const ListItems=({item})=>{
    
     return (
         <div>
-        <div className=" border-gray-400 border-b-2 flex justify-between">
-        <div className="w-3/4 py-2">
+        <div  data-testid="cartItem" className=" border-gray-400 border-b-2 flex justify-between">
+        <div  className="w-3/4 py-2">
         
           <span className="text-bold">{item?.item?.card?.info?.name}</span>
           <span>

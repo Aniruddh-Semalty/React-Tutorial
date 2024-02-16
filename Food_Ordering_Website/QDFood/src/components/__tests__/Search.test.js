@@ -12,7 +12,7 @@ global.fetch=jest.fn(()=>{
     })
 })
 
-describe("Should render restaurant list",()=>{
+describe("Should render restaurant list in body",()=>{
     it("should render restaurant list before search button clicked",async()=>{
        
         await act(async()=>{
